@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "YHsUysAkydCDjUuDcaL5iaQvGvNnZ8fm1BZnUvM4ahe7p/qa8XjCqdxVMQIeoD9SNHFI2HEMVsqNEbJXARPyvg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\JustFalco\\Documents\\Development\\Github desktop\\Eindcase traineeship\\TraineeshipEindcase\\backend\\EindcaseASPBackend\\EindcaseASPBackend\\EindcaseASPBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\JustFalco\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.2\\microsoft.visualstudio.azure.containers.tools.targets.1.17.2.nupkg.sha512"
+  ],
+  "logs": []
+}
