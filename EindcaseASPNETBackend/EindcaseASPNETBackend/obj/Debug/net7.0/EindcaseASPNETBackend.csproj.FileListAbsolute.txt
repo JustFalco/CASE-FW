@@ -82,3 +82,5 @@ C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\Tra
 C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\EindcaseASPNETBackend\obj\Debug\net7.0\EindcaseASPNETBackend.csproj.CopyComplete
 C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\EindcaseASPNETBackend\bin\Debug\net7.0\Data-access-layer.dll
 C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\EindcaseASPNETBackend\bin\Debug\net7.0\Data-access-layer.pdb
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\EindcaseASPNETBackend\bin\Debug\net7.0\Service-layer.dll
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\EindcaseASPNETBackend\bin\Debug\net7.0\Service-layer.pdb

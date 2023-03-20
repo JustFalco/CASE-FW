@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EindcaseASPNETBackend", "EindcaseASPNETBackend\EindcaseASPNETBackend.csproj", "{4D008482-099A-4639-854D-39A210B01157}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EindcaseASPNETBackend", "EindcaseASPNETBackend\EindcaseASPNETBackend.csproj", "{4D008482-099A-4639-854D-39A210B01157}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data-access-layer", "Data-access-layer\Data-access-layer.csproj", "{602FCC78-B428-4175-B34D-FFEA5409B967}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data-access-layer", "Data-access-layer\Data-access-layer.csproj", "{602FCC78-B428-4175-B34D-FFEA5409B967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service-layer", "Service-layer\Service-layer.csproj", "{04EE8CB2-82C0-4153-8B86-48F5C30395E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{602FCC78-B428-4175-B34D-FFEA5409B967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{602FCC78-B428-4175-B34D-FFEA5409B967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{602FCC78-B428-4175-B34D-FFEA5409B967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04EE8CB2-82C0-4153-8B86-48F5C30395E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EE8CB2-82C0-4153-8B86-48F5C30395E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EE8CB2-82C0-4153-8B86-48F5C30395E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EE8CB2-82C0-4153-8B86-48F5C30395E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

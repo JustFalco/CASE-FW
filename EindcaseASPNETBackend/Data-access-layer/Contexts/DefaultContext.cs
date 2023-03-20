@@ -27,7 +27,7 @@ public class DefaultContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseInMemoryDatabase(databaseName: dbConnectionString);
+            optionsBuilder.UseSqlServer(connectionString: dbConnectionString);
         }
     }
 

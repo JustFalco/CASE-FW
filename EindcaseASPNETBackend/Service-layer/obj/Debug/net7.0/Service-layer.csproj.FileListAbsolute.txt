@@ -1,0 +1,15 @@
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\bin\Debug\net7.0\Service-layer.deps.json
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\bin\Debug\net7.0\Service-layer.dll
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\bin\Debug\net7.0\Service-layer.pdb
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\bin\Debug\net7.0\Data-access-layer.dll
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\bin\Debug\net7.0\Data-access-layer.pdb
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.csproj.AssemblyReference.cache
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.AssemblyInfoInputs.cache
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.AssemblyInfo.cs
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.csproj.CoreCompileInputs.cache
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.csproj.CopyComplete
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.dll
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\refint\Service-layer.dll
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\Service-layer.pdb
+C:\Users\JustFalco\Documents\Development\Github desktop\Eindcase traineeship\TraineeshipEindcase\EindcaseASPNETBackend\Service-layer\obj\Debug\net7.0\ref\Service-layer.dll

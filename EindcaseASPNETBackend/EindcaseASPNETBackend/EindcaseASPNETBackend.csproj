@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data-access-layer\Data-access-layer.csproj" />
+    <ProjectReference Include="..\Service-layer\Service-layer.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,20 @@
+<div class="m-3">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Start</th>
+            <th scope="col">Duur</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Cursisten</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of courses">
+            <td scope="row">{{course.startDate | date:'mediumDate'}}</td>
+            <td scope="row">{{course.course.amountOfDays}}</td>
+            <td scope="row">{{course.course.title}}</td>
+            <td scope="row">{{course.students.length}} cursisten</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

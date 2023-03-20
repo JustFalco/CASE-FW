@@ -1,9 +1,12 @@
 using Data_access_layer.Contexts;
+using Data_access_layer.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Service_layer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var azureConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var localConnectionString = builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -12,14 +15,17 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("angularfrontend", policy =>
     {
-        policy.WithOrigins("https://localhost:8080").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
     });
 });
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<DefaultContext>(options =>
-    options.UseSqlServer(azureConnectionString));
+builder.Services.AddDbContext<CourseContext>(options =>
+    options.UseSqlServer(localConnectionString));
+
+builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 
 var app = builder.Build();
 
