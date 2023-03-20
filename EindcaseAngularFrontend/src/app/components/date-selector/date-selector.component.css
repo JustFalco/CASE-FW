@@ -1,0 +1,7 @@
+p span:hover{
+    font-weight: bolder;
+}
+
+input{
+    width: 5vw;
+}

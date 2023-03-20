@@ -39,6 +39,14 @@ public class CourseContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        CourseModel courseModel = new CourseModel
+        {
+            Id = -100,
+            CourseCode = "IAMFW",
+            AmountOfDays = 3,
+            Title = "Test course"
+        };
+
         modelBuilder.Entity<StudentModel>().HasData(new StudentModel
         {
             FirstName = "Falco",
@@ -46,19 +54,14 @@ public class CourseContext : DbContext
             Id = -100
         });
 
-        modelBuilder.Entity<CourseModel>().HasData(new CourseModel
-        {
-            Id = -100,
-            AmountOfDays = 3,
-            Title = "Test course"
-        });
+        modelBuilder.Entity<CourseModel>().HasData(courseModel);
 
         modelBuilder.Entity<CourseInstanceModel>().HasData(new CourseInstanceModel
         {
             Id = -100,
             StartDate = DateTime.Now,
             Students = new List<StudentModel>(),
-            CourseId = -100,
+            CourseId = -100
         });
     }
 }

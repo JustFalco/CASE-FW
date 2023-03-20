@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data_access_layer.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class newKeyAndModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,6 +17,7 @@ namespace Data_access_layer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AmountOfDays = table.Column<int>(type: "int", nullable: false)
                 },
@@ -85,13 +86,18 @@ namespace Data_access_layer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Courses",
-                columns: new[] { "Id", "AmountOfDays", "Title" },
-                values: new object[] { -100, 3, "Test course" });
+                columns: new[] { "Id", "AmountOfDays", "CourseCode", "Title" },
+                values: new object[] { -100, 3, "IAMFW", "Test course" });
+
+            migrationBuilder.InsertData(
+                table: "Students",
+                columns: new[] { "Id", "FirstName", "LastName" },
+                values: new object[] { -100, "Falco", "Wolkorte" });
 
             migrationBuilder.InsertData(
                 table: "CourseInstances",
                 columns: new[] { "Id", "CourseId", "StartDate" },
-                values: new object[] { -100, -100, new DateTime(2023, 3, 20, 11, 54, 18, 211, DateTimeKind.Local).AddTicks(4407) });
+                values: new object[] { -100, -100, new DateTime(2023, 3, 20, 18, 44, 6, 795, DateTimeKind.Local).AddTicks(4770) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseInstanceModelStudentModel_StudentsId",

@@ -16,7 +16,5 @@ namespace Data_access_layer.DTOs
         [Required]
         public DateTime EndDate { get; set; }
 
-        [Required]
-        public IFormFile CourseFile { get; set; }
     }
 }

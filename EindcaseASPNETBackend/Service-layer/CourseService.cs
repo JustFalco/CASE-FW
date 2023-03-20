@@ -4,14 +4,18 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data_access_layer.DTOs;
 using Data_access_layer.Models;
 using Data_access_layer.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace Service_layer
 {
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
+        private int _courseCounter = 0;
+        private int _courseInstanceCounter = 0;
 
         public CourseService(ICourseRepository courseRepository)
         {
@@ -56,5 +60,113 @@ namespace Service_layer
             return courseList;
 
         }
+
+        public List<FileObject> handleFormFile(IFormFile file)
+        {
+            List<FileObject> fileObjects = new List<FileObject>();
+
+
+            string line = "";
+
+            using (var sr = new StreamReader(file.OpenReadStream()))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    FileObject temFileObject = new FileObject();
+
+                    while (line != "")
+                    {
+                        switch (line.Split(": ")[0])
+                        {
+                            case "Titel":
+                                temFileObject.Title = line.Split(": ")[1];
+                                break;
+                            case "Cursuscode":
+                                temFileObject.CourseCode = line.Split(": ")[1];
+                                break;
+                            case "Duur":
+                                temFileObject.AmountOfDays = int.Parse(line.Split(": ")[1].Split(" dagen")[0]) ;
+                                break;
+                            case "Startdatum":
+                                temFileObject.startDate = DateTime.Parse(line.Split(": ")[1]);
+                                break;
+                            default:
+                                throw new Exception("File is not correct");
+                        }
+
+                        line = sr.ReadLine();
+                    }
+                    fileObjects.Add(temFileObject);
+                }
+            }
+
+            return fileObjects;
+            throw new NotImplementedException();
+        }
+
+        async Task<CourseModel> generateCourse(FileObject fileObject)
+        {
+            CourseModel? course;
+            course = await _courseRepository.GetCourseByCodeAsync(fileObject.CourseCode);
+
+
+            if (course != null)
+            {
+                return course;
+            }
+            else
+            {
+                course = new CourseModel();
+            }
+
+            course.AmountOfDays = fileObject.AmountOfDays;
+            course.Title = fileObject.Title;
+            course.CourseCode = fileObject.CourseCode;
+
+            var result = await _courseRepository.SaveCourseInDatabaseAsync(course);
+            _courseCounter++;
+
+            return result;
+        }
+
+        async Task<CourseInstanceModel> generateCourseInstance(FileObject fileObject)
+        {
+            CourseInstanceModel courseInstance = new CourseInstanceModel();
+            CourseModel? course;
+
+            courseInstance.StartDate = fileObject.startDate;
+            course = await _courseRepository.GetCourseByCodeAsync(fileObject.CourseCode);
+            
+            if (course == null)
+            {
+                course = await generateCourse(fileObject);
+            }
+
+
+            courseInstance.Course = course;
+
+            var result = await _courseRepository.SaveCourseInstanceInDatabaseAsync(courseInstance);
+            _courseInstanceCounter++;
+
+            return result;
+        }
+
+        public async Task<string> handleCourseCreationWithFile(IFormFile file, DateTime StartDate, DateTime EndDate)
+        {
+            List<FileObject> fileObjects = handleFormFile(file);
+            _courseCounter = 0;
+            _courseInstanceCounter = 0;
+
+            foreach (var fileObject in fileObjects)
+            {
+                if (fileObject.startDate >= StartDate && fileObject.startDate <= EndDate)
+                {
+                    var result = await generateCourseInstance(fileObject);
+                }
+            }
+
+            return $"Generated {_courseInstanceCounter} course instances and {_courseCounter} courses!";
+        }
+
     }
 }

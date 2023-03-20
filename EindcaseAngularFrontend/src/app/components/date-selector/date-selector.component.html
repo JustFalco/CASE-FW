@@ -1,5 +1,17 @@
 <div class="d-flex">
     <button class="m-3 btn btn-primary" (click)="prefWeek()">vorige week</button>
-    <p class="m-3">week [ {{week}} ] jaar [ {{jaar}} ]</p>
+    <form class="d-flex m-3 form-group" [formGroup]="dateEditForm" (ngSubmit)="setDate()">
+        <div class="d-flex">
+            <label *ngIf="editWeek" for="weekInput" class="m-2">week</label>
+            <input class="form-control" *ngIf="editWeek" type="number" id="weekInput" name="weekInput" formControlName="weekInput">
+            <p *ngIf="!editWeek" class="m-2">Week: <span (click)="editWeek = !editWeek">[ {{week}} ]</span></p>
+        </div>
+        <div class="d-flex">
+            <label *ngIf="editYear" for="yearInput" class="m-2">jaar</label>
+            <input class="form-control" *ngIf="editYear" type="number" id="yearInput" name="yearInput" formControlName="yearInput">
+            <p *ngIf="!editYear" class="m-2">Jaar: <span (click)="editYear = !editYear">[ {{year}} ]</span></p>
+        </div>
+        <button type="submit" hidden></button>
+    </form>
     <button class="m-3 btn btn-primary" (click)="nextWeek()">volgende week</button>
 </div>

@@ -39,12 +39,15 @@ namespace EindcaseASPNETBackend.Controllers
 
         // POST api/<CourseController>
         [HttpPost]
-        public void Post([FromBody] CreateCourseDTO courseDto)
+        public async Task<string> Post(IFormFile file,[FromQuery] DateTime StartDate,[FromQuery] DateTime EndDate)
         {
-            if (ModelState.IsValid)
+            if (file.Length > 0)
             {
-
+                var result = await _courseService.handleCourseCreationWithFile(file, StartDate, EndDate);
+                return result;
             }
+
+            return "There were errors";
         }
 
         // PUT api/<CourseController>/5

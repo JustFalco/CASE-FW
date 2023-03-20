@@ -30,4 +30,12 @@ export class DateStoreService {
     //TODO zorgen dat het jaar ook aanpast op basis van de weeknummers
     this.weekSource.next(this.weekSource.value - 1)
   }
+
+  public setWeek(weekNr:number){
+    this.weekSource.next(weekNr)
+  }
+
+  public setYear(year:number){
+    this.yearSource.next(year)
+  }
 }

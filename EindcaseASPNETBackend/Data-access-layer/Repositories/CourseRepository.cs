@@ -24,7 +24,34 @@ namespace Data_access_layer.Repositories
                 .Where(c => c.StartDate  >= startDate && c.StartDate <= endDate)
                 .Include(c => c.Course)
                 .Include(c => c.Students)
+                .OrderBy(c => c.StartDate)
                 .ToList();
+        }
+
+        public async Task<CourseModel> SaveCourseInDatabaseAsync(CourseModel course)
+        {
+            if (GetCourseByCodeAsync(course.CourseCode) != null)
+            {
+                return course;
+            }
+
+            _courseContext.Courses.Add(course);
+            await _courseContext.SaveChangesAsync();
+
+            return course;
+        }
+
+        public async Task<CourseInstanceModel> SaveCourseInstanceInDatabaseAsync(CourseInstanceModel courseInstance)
+        {
+            _courseContext.CourseInstances.Add(courseInstance);
+            await _courseContext.SaveChangesAsync();
+
+            return courseInstance;
+        }
+
+        public async Task<CourseModel?> GetCourseByCodeAsync(string courseCode)
+        {
+            return _courseContext.Courses.Where(c => c.CourseCode == courseCode).ToList().FirstOrDefault(defaultValue: null);
         }
     }
 }

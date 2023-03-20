@@ -62,7 +62,7 @@ namespace Data_access_layer.Migrations
                         {
                             Id = -100,
                             CourseId = -100,
-                            StartDate = new DateTime(2023, 3, 20, 11, 54, 18, 211, DateTimeKind.Local).AddTicks(4407)
+                            StartDate = new DateTime(2023, 3, 20, 18, 44, 6, 795, DateTimeKind.Local).AddTicks(4770)
                         });
                 });
 
@@ -77,6 +77,10 @@ namespace Data_access_layer.Migrations
                     b.Property<int>("AmountOfDays")
                         .HasColumnType("int");
 
+                    b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -90,6 +94,7 @@ namespace Data_access_layer.Migrations
                         {
                             Id = -100,
                             AmountOfDays = 3,
+                            CourseCode = "IAMFW",
                             Title = "Test course"
                         });
                 });
@@ -115,6 +120,14 @@ namespace Data_access_layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -100,
+                            FirstName = "Falco",
+                            LastName = "Wolkorte"
+                        });
                 });
 
             modelBuilder.Entity("CourseInstanceModelStudentModel", b =>
