@@ -50,7 +50,7 @@ export class DateStoreService {
     this.setQueryParms();
   }
 
-  private setQueryParms() {
+  public setQueryParms() {
     let queryParams: Params = {
       week: this.weekSource.value,
       year: this.yearSource.value,
