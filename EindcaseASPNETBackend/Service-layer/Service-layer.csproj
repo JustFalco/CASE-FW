@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Data-access-layer\Data-access-layer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tests\" />
-  </ItemGroup>
-
 </Project>
