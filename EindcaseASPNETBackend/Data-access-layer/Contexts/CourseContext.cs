@@ -39,6 +39,10 @@ public class CourseContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        /*modelBuilder.Entity<StudentModel>()
+            .HasAlternateKey(s => new { s.FirstName, s.LastName })
+            .HasName("Composite_Key_FirstLastName");
+
         CourseModel courseModel = new CourseModel
         {
             Id = -100,
@@ -50,8 +54,7 @@ public class CourseContext : DbContext
         modelBuilder.Entity<StudentModel>().HasData(new StudentModel
         {
             FirstName = "Falco",
-            LastName = "Wolkorte",
-            Id = -100
+            LastName = "Wolkorte"
         });
 
         modelBuilder.Entity<CourseModel>().HasData(courseModel);
@@ -62,6 +65,6 @@ public class CourseContext : DbContext
             StartDate = DateTime.Now,
             Students = new List<StudentModel>(),
             CourseId = -100
-        });
+        });*/
     }
 }

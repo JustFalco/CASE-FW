@@ -26,6 +26,8 @@ builder.Services.AddDbContext<CourseContext>(options =>
 
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<IStudentService, StudentService>();
 
 var app = builder.Build();
 

@@ -52,6 +52,7 @@ export class CreateCourseComponent {
       .subscribe(
         (result) => {
           this.submitResult = result
+          this.courseCreateForm.reset()
         }
       );
   }

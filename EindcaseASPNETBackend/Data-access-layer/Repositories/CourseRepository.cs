@@ -28,6 +28,15 @@ namespace Data_access_layer.Repositories
                 .ToList();
         }
 
+        public async Task<CourseInstanceModel?> GetCourseInstanceById(int id)
+        {
+            return _courseContext.CourseInstances
+                .Where(c => c.Id == id)
+                .Include(c => c.Course)
+                .Include(c => c.Students)
+                .ToList().FirstOrDefault(defaultValue: null);
+        }
+
         public async Task<CourseModel> SaveCourseInDatabaseAsync(CourseModel course)
         {
             if (GetCourseByCodeAsync(course.CourseCode) != null)
@@ -43,7 +52,15 @@ namespace Data_access_layer.Repositories
 
         public async Task<CourseInstanceModel> SaveCourseInstanceInDatabaseAsync(CourseInstanceModel courseInstance)
         {
-            _courseContext.CourseInstances.Add(courseInstance);
+            if (CheckIfCourseInstanceExists(courseInstance.StartDate, courseInstance.Course.CourseCode))
+            {
+                _courseContext.CourseInstances.Update(courseInstance);
+            }
+            else
+            {
+                _courseContext.CourseInstances.Add(courseInstance);
+            }
+            
             await _courseContext.SaveChangesAsync();
 
             return courseInstance;
@@ -52,6 +69,25 @@ namespace Data_access_layer.Repositories
         public async Task<CourseModel?> GetCourseByCodeAsync(string courseCode)
         {
             return _courseContext.Courses.Where(c => c.CourseCode == courseCode).ToList().FirstOrDefault(defaultValue: null);
+        }
+
+        public bool CheckIfCourseInstanceExists(DateTime startDate, string courseCode)
+        {
+            CourseInstanceModel? courseInstance = GetCourseInstanceModelByDateAndCourseCode(startDate, courseCode);
+
+            if (courseInstance != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public CourseInstanceModel? GetCourseInstanceModelByDateAndCourseCode(DateTime startDate, string courseCode)
+        {
+            return _courseContext.CourseInstances
+                .Where(c => c.StartDate == startDate && c.Course.CourseCode == courseCode).ToList()
+                .FirstOrDefault(defaultValue: null);
         }
     }
 }

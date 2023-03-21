@@ -30,14 +30,12 @@ namespace Data_access_layer.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.PrimaryKey("PK_Students", x => new { x.FirstName, x.LastName });
                 });
 
             migrationBuilder.CreateTable(
@@ -65,11 +63,12 @@ namespace Data_access_layer.Migrations
                 columns: table => new
                 {
                     AttendingCoursesId = table.Column<int>(type: "int", nullable: false),
-                    StudentsId = table.Column<int>(type: "int", nullable: false)
+                    StudentsFirstName = table.Column<string>(type: "nvarchar(200)", nullable: false),
+                    StudentsLastName = table.Column<string>(type: "nvarchar(200)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseInstanceModelStudentModel", x => new { x.AttendingCoursesId, x.StudentsId });
+                    table.PrimaryKey("PK_CourseInstanceModelStudentModel", x => new { x.AttendingCoursesId, x.StudentsFirstName, x.StudentsLastName });
                     table.ForeignKey(
                         name: "FK_CourseInstanceModelStudentModel_CourseInstances_AttendingCoursesId",
                         column: x => x.AttendingCoursesId,
@@ -77,32 +76,17 @@ namespace Data_access_layer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseInstanceModelStudentModel_Students_StudentsId",
-                        column: x => x.StudentsId,
+                        name: "FK_CourseInstanceModelStudentModel_Students_StudentsFirstName_StudentsLastName",
+                        columns: x => new { x.StudentsFirstName, x.StudentsLastName },
                         principalTable: "Students",
-                        principalColumn: "Id",
+                        principalColumns: new[] { "FirstName", "LastName" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Courses",
-                columns: new[] { "Id", "AmountOfDays", "CourseCode", "Title" },
-                values: new object[] { -100, 3, "IAMFW", "Test course" });
-
-            migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "FirstName", "LastName" },
-                values: new object[] { -100, "Falco", "Wolkorte" });
-
-            migrationBuilder.InsertData(
-                table: "CourseInstances",
-                columns: new[] { "Id", "CourseId", "StartDate" },
-                values: new object[] { -100, -100, new DateTime(2023, 3, 20, 18, 44, 6, 795, DateTimeKind.Local).AddTicks(4770) });
-
             migrationBuilder.CreateIndex(
-                name: "IX_CourseInstanceModelStudentModel_StudentsId",
+                name: "IX_CourseInstanceModelStudentModel_StudentsFirstName_StudentsLastName",
                 table: "CourseInstanceModelStudentModel",
-                column: "StudentsId");
+                columns: new[] { "StudentsFirstName", "StudentsLastName" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CourseInstances_CourseId",

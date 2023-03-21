@@ -1,0 +1,14 @@
+<h4>Cursist toevoegen</h4>
+
+<form [formGroup]="newStudentForm" (submit)="submitStudent()">
+    <div class="form-group">
+        <label for="firstName">Voornaam:</label>
+        <input type="text" id="firstName" name="firstName" formControlName="firstName">
+    </div>
+    <div class="form-group">
+        <label for="lastName">Achternaam:</label>
+        <input type="text" id="lastName" name="lastName" formControlName="lastName">
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!newStudentForm.valid">Voeg toe</button>
+    <button class="btn btn-danger" type="reset" *ngIf="newStudentForm.dirty">Annuleer</button>
+</form>

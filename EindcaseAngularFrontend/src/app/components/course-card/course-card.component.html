@@ -1,0 +1,20 @@
+<div *ngIf="courseInstance">
+    <h3>{{courseInstance.course.title}}</h3>
+    <p>(Start op {{courseInstance.startDate | date:'mediumDate'}}, duurt {{courseInstance.course.amountOfDays}} dagen)</p>
+    <h4>Deelnemers</h4>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Voornaam</th>
+            <th scope="col">Achternaam</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of courseInstance.students">
+            <td scope="row">{{student.firstName}}</td>
+            <td scope="row">{{student.lastName}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+</div>

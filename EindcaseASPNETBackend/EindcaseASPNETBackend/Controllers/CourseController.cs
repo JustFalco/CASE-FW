@@ -1,4 +1,5 @@
 ﻿using Data_access_layer.DTOs;
+using Data_access_layer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service_layer;
 
@@ -32,9 +33,9 @@ namespace EindcaseASPNETBackend.Controllers
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<CourseInstanceModel> GetCourseInstanceById(int id)
         {
-            return "value";
+            return await _courseService.GetCourseInstanceById(id);
         }
 
         // POST api/<CourseController>

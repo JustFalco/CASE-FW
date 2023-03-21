@@ -1,0 +1,5 @@
+<div class="m-4">
+    <app-previous-page-button></app-previous-page-button>
+    <app-course-card [courseInstance]="courseInstance"></app-course-card>
+    <app-add-student [instanceId]="courseInstance?.id" (updateListEvent)="updateInstanceStudentsList($event)"></app-add-student>
+</div>

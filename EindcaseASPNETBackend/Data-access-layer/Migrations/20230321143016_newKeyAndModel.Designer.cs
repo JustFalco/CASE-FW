@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_access_layer.Migrations
 {
     [DbContext(typeof(CourseContext))]
-    [Migration("20230320174406_newKeyAndModel")]
+    [Migration("20230321143016_newKeyAndModel")]
     partial class newKeyAndModel
     {
         /// <inheritdoc />
@@ -30,12 +30,15 @@ namespace Data_access_layer.Migrations
                     b.Property<int>("AttendingCoursesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentsId")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentsFirstName")
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("AttendingCoursesId", "StudentsId");
+                    b.Property<string>("StudentsLastName")
+                        .HasColumnType("nvarchar(200)");
 
-                    b.HasIndex("StudentsId");
+                    b.HasKey("AttendingCoursesId", "StudentsFirstName", "StudentsLastName");
+
+                    b.HasIndex("StudentsFirstName", "StudentsLastName");
 
                     b.ToTable("CourseInstanceModelStudentModel");
                 });
@@ -59,14 +62,6 @@ namespace Data_access_layer.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("CourseInstances");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -100,
-                            CourseId = -100,
-                            StartDate = new DateTime(2023, 3, 20, 18, 44, 6, 795, DateTimeKind.Local).AddTicks(4770)
-                        });
                 });
 
             modelBuilder.Entity("Data_access_layer.Models.CourseModel", b =>
@@ -91,46 +86,21 @@ namespace Data_access_layer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -100,
-                            AmountOfDays = 3,
-                            CourseCode = "IAMFW",
-                            Title = "Test course"
-                        });
                 });
 
             modelBuilder.Entity("Data_access_layer.Models.StudentModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("Id");
+                    b.HasKey("FirstName", "LastName");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -100,
-                            FirstName = "Falco",
-                            LastName = "Wolkorte"
-                        });
                 });
 
             modelBuilder.Entity("CourseInstanceModelStudentModel", b =>
@@ -143,7 +113,7 @@ namespace Data_access_layer.Migrations
 
                     b.HasOne("Data_access_layer.Models.StudentModel", null)
                         .WithMany()
-                        .HasForeignKey("StudentsId")
+                        .HasForeignKey("StudentsFirstName", "StudentsLastName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
