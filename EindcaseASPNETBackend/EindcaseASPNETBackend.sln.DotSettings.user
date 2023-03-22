@@ -1,6 +1,33 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1bfee65a_002Ddd0f_002D498b_002Da5e2_002D7f9b87eefeb7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateStudentTest_ShouldReturnStudentFromDatabase_GivenExistingName" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\JustFalco\AppData\Local\JetBrains\Rider2022.2\resharper-host\temp\Rider\vAny\CoverageData\_EindcaseASPNETBackend.1577898348\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1bfee65a_002Ddd0f_002D498b_002Da5e2_002D7f9b87eefeb7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateStudentTest_ShouldReturnStudentFromDatabase_GivenExistingName" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.StudentServiceTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.IsFileInCorrectFormatTest_ShouldReturnTrue_GivenCorrectFile&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=64b30929_002Daafb_002D4017_002D9956_002D25986281aad0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="generateCourseTest_ShouldReturnNewCourse_GivenNewFileObject" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.generateCourseTest_ShouldReturnNewCourse_GivenNewFileObject&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c848ea8_002D04b6_002D4432_002D94ba_002D0793cd26828d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="generateCourseInstanceTest_ShouldReturnAndSaveNewCourseInstance_GivenNonExistingCourseInstance" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9900d4f0_002D84c4_002D41aa_002D81b6_002D10566c2359a0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="IsFileInCorrectFormatTest_ShouldReturnTrue_GivenCorrectFile" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.IsFileInCorrectFormatTest_ShouldReturnTrue_GivenCorrectFile&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.IsFileInCorrectFormatTest_ShouldReturnFalse_GivenIncorrectFile&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.handleFormFileTest_ShouldReturnListWithNineItems_GivenACorrectFileWithNineCourses&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.handleFormFileTest_ShouldThrowException_GivenAIncorrectFile&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.generateCourseTest_ShouldReturnNewCourse_GivenNewFileObject&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=fdd2cf5d_002D9e76_002D4ee1_002Da5ca_002Dffa2cfc7f072/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="generateCourseTest_ShouldReturnNewCourse_GivenNewFileObject #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.StudentServiceTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -98,5 +98,107 @@ namespace Service_layer.Tests
             Assert.ThrowsAsync<Exception>(async () => await _sut.CreateStudent(studentDto));
             _courseRepoMock.Verify(x => x.GetCourseInstanceById(courseInstanceId), Times.Once());
         }
+
+        [Fact()]
+        public async void CreateStudentTest_ShouldNotSaveCourseInstance_GivenAStudentIsAlreadyAddedToCourseInstance()
+        {
+            string firstName = "Falco";
+            string lastName = "Wolkorte";
+
+            studentDto = new CreateStudentDTO
+            {
+                CourseInstanceId = -100,
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            StudentModel studentDummy = new StudentModel
+            {
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            CourseInstanceModel courseInstanceDummy = new CourseInstanceModel
+            {
+                StartDate = DateTime.Now,
+                Id = -100,
+                Students = new List<StudentModel>
+                {
+                    studentDummy
+                }
+            };
+
+            _courseRepoMock.Setup(x => x.GetCourseInstanceById(courseInstanceDummy.Id))
+                .ReturnsAsync(courseInstanceDummy);
+
+            _studentRepoMock.Setup(x => x.GetStudentByNameAndId(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(studentDummy);
+
+            var result = await _sut.CreateStudent(studentDto);
+
+            _courseRepoMock.Verify(x => x.SaveCourseInstanceInDatabaseAsync(courseInstanceDummy), Times.Never);
+            Assert.Same(studentDummy, result);
+            
+        }
+
+        [Fact()]
+        public void CreateStudentTest_ShouldThrowException_GivenACourseInstanceHas12Students()
+        {
+            CourseInstanceModel courseInstanceDummy = new CourseInstanceModel
+            {
+                StartDate = DateTime.Now,
+                Id = -100,
+                Students = new List<StudentModel>
+                {
+                    It.IsAny<StudentModel>(), It.IsAny<StudentModel>(), It.IsAny<StudentModel>(),
+                    It.IsAny<StudentModel>(), It.IsAny<StudentModel>(), It.IsAny<StudentModel>(),
+                    It.IsAny<StudentModel>(), It.IsAny<StudentModel>(), It.IsAny<StudentModel>(),
+                    It.IsAny<StudentModel>(), It.IsAny<StudentModel>(), It.IsAny<StudentModel>()
+                }
+            };
+
+            _courseRepoMock.Setup(x => x.GetCourseInstanceById(courseInstanceDummy.Id))
+                .ReturnsAsync(courseInstanceDummy);
+
+            Assert.ThrowsAsync<Exception>(async () => await _sut.CreateStudent(studentDto));
+            _courseRepoMock.Verify(x => x.SaveCourseInstanceInDatabaseAsync(courseInstanceDummy), Times.Never);
+        }
+
+        [Fact()]
+        public async void CreateStudentTest_ShouldCreateSaveAndReturnStudentAndSaveCourseInstance_GivenANewStudent()
+        {
+            string firstName = "Falco";
+            string lastName = "Wolkorte";
+
+            studentDto = new CreateStudentDTO
+            {
+                CourseInstanceId = -100,
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            StudentModel studentDummy = new StudentModel
+            {
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            CourseInstanceModel courseInstanceDummy = new CourseInstanceModel
+            {
+                StartDate = DateTime.Now,
+                Id = -100,
+                Students = new List<StudentModel>()
+            };
+
+            _studentRepoMock.Setup(x => x.GetStudentByNameAndId(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(studentDummy);
+            _courseRepoMock.Setup(x => x.GetCourseInstanceById(-100)).ReturnsAsync(courseInstanceDummy);
+
+            var result = await _sut.CreateStudent(studentDto);
+
+            _courseRepoMock.Verify(x => x.SaveCourseInstanceInDatabaseAsync(courseInstanceDummy), Times.Once());
+            Assert.Equal( firstName, result.FirstName);
+            Assert.Equal(lastName, result.LastName);
+        }
     }
 }

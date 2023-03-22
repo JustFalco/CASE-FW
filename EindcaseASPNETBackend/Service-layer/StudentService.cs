@@ -23,7 +23,7 @@ namespace Service_layer
         public async Task<StudentModel> CreateStudent(CreateStudentDTO studentDto)
         {
             //check if student exists
-            StudentModel student;
+            StudentModel student = new StudentModel();
             student = _studentRepository.GetStudentByNameAndId(studentDto.FirstName, studentDto.LastName);
 
             //create student if not
@@ -59,11 +59,13 @@ namespace Service_layer
                 courseInstance.Students.Add(student);
                 await _courseRepository.SaveCourseInstanceInDatabaseAsync(courseInstance);
             }
+            else
+            {
+                throw new Exception("Course already has 12 students!");
+            }
 
             //return student
             return student;
-
-            throw new NotImplementedException();
 
         }
     }

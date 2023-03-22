@@ -52,7 +52,7 @@ namespace Service_layer
 
             // Subtract 3 days from Thursday to get Monday, which is the first weekday in ISO8601
             var firstWeekDay = result.AddDays(-3);
-            var lastWeekDay = firstWeekDay.AddDays(7);
+            var lastWeekDay = firstWeekDay.AddDays(6);
 
 
             //get courses
@@ -120,13 +120,17 @@ namespace Service_layer
                         }
                         line = sr.ReadLine();
                         _lineNumError++;
-                        if (line != "")
+                        if (!string.IsNullOrEmpty(line) || !string.IsNullOrWhiteSpace(line))
                         {
                             return false;
                         }
+                        if (line == null)
+                        {
+                            return true;
+                        }
                     }
                 }
-
+                sr.Close();
             }
 
             return true;
@@ -136,6 +140,10 @@ namespace Service_layer
         {
             List<FileObject> fileObjects = new List<FileObject>();
 
+            if (!IsFileInCorrectFormat(file))
+            {
+                throw new Exception("File is not in correct format");
+            }
 
             string line = "";
 
@@ -145,7 +153,7 @@ namespace Service_layer
                 {
                     FileObject temFileObject = new FileObject();
 
-                    while (line != "")
+                    while (!string.IsNullOrEmpty(line))
                     {
                         switch (line.Split(": ")[0])
                         {
@@ -169,14 +177,20 @@ namespace Service_layer
                     }
                     fileObjects.Add(temFileObject);
                 }
+                sr.Close();
             }
 
             return fileObjects;
             throw new NotImplementedException();
         }
 
-        async Task<CourseModel> generateCourse(FileObject fileObject)
+        public async Task<CourseModel> generateCourse(FileObject fileObject)
         {
+            if (fileObject.AmountOfDays > 5)
+            {
+                throw new Exception("Cannot have a course with more than 5 days!");
+            }
+
             CourseModel? course;
             course = await _courseRepository.GetCourseByCodeAsync(fileObject.CourseCode);
 
@@ -200,7 +214,7 @@ namespace Service_layer
             return result;
         }
 
-        async Task<CourseInstanceModel> generateCourseInstance(FileObject fileObject)
+        public async Task<CourseInstanceModel> generateCourseInstance(FileObject fileObject)
         {
             CourseInstanceModel? courseInstance;
             CourseModel? course;
