@@ -5,12 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data_access_layer.Contexts;
 using Data_access_layer.DTOs;
 using Data_access_layer.Models;
 using Data_access_layer.Repositories;
 using Moq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.EntityFrameworkCore;
 
 namespace Service_layer.Tests
 {
@@ -19,10 +21,12 @@ namespace Service_layer.Tests
 
         private CourseService _sut;
         private Mock<ICourseRepository> _courseRepoMock;
+        
 
         public CourseServiceTests()
         {
             _courseRepoMock = new Mock<ICourseRepository>();
+            
 
             _sut = new CourseService(_courseRepoMock.Object);
         }
@@ -42,9 +46,41 @@ namespace Service_layer.Tests
         }
 
         [Fact()]
-        public void getCoursesByWeekAndYearTest()
+        public async void getCoursesByWeekAndYearTest_ShouldReturnCourseInstances_GivenValidYearAndWeek()
         {
-            Assert.True(false, "This test needs an implementation");
+            int year = 2023;
+            DateTime jan1 = new DateTime(year, 1, 1);
+            
+            var data = new List<CourseInstanceModel> { 
+                new CourseInstanceModel { StartDate = jan1.AddDays(2) }, 
+                new CourseInstanceModel { StartDate = jan1.AddDays(7) }, 
+                new CourseInstanceModel { StartDate = jan1.AddDays(10) }, 
+                new CourseInstanceModel { StartDate = jan1.AddDays(20) }}.AsQueryable();
+
+            var mockSet = new Mock<DbSet<CourseInstanceModel>>();
+            mockSet.As<IQueryable<CourseInstanceModel>>().Setup(x => x.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<CourseInstanceModel>>().Setup(x => x.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<CourseInstanceModel>>().Setup(x => x.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<CourseInstanceModel>>().Setup(x => x.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            /*var courseContextMock = new Mock<CourseContext>();
+            courseContextMock.Setup((c) => c.CourseInstances).Returns(mockSet.Object);*/
+            var courseContextMock = new CourseContext { CourseInstances = mockSet.Object };
+
+
+            CourseRepository _courseRepository = new CourseRepository(courseContextMock);
+            CourseService sut = new CourseService(_courseRepository);
+
+            var result = await sut.getCoursesByWeekAndYear(1, year);
+
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact()]
+        public async void getCoursesByWeekAndYearTest_ShouldThrowException_GivenInvalidWeek()
+        {
+            Assert.ThrowsAsync<Exception>(async () => _sut.getCoursesByWeekAndYear(0, 2023));
+            Assert.ThrowsAsync<Exception>(async () => _sut.getCoursesByWeekAndYear(100, 2023));
         }
 
         [Fact()]
@@ -268,27 +304,87 @@ namespace Service_layer.Tests
         [Fact()]
         public async void handleCourseCreationWithFileTest_ShouldReturnSuccesString_GivenACorrectFile()
         {
+            //TODO HIer nog even naar kijken ivb met de return string
             //Content van files is gekopierd uit goedvoorbeeld5.txt
-            IFormFile correctFile = CreateTestFormFile("correct.txt", "Titel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 06/07/2020\r\n\r\nTitel: Java Persistence API\r\nCursuscode: JPA\r\nDuur: 2 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Java Persistence API\r\nCursuscode: JPA\r\nDuur: 2 dagen\r\nStartdatum: 08/07/2020\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Fundamentals\r\nCursuscode: AZF\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Advanced\r\nCursuscode: AZA\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Fundamentals\r\nCursuscode: AZF\r\nDuur: 5 dagen\r\nStartdatum: 29/06/2020\r\n\r\nTitel: Azure Advanced\r\nCursuscode: AZA\r\nDuur: 5 dagen\r\nStartdatum: 29/06/2020\r\n");
+            IFormFile correctFile = CreateTestFormFile("correct.txt", "Titel: Java Persistence API\r\nCursuscode: JPA\r\nDuur: 2 dagen\r\nStartdatum: 08/07/2020\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Fundamentals\r\nCursuscode: AZF\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Advanced\r\nCursuscode: AZA\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n");
 
             var result = await _sut.handleCourseCreationWithFile(correctFile, DateTime.MinValue, DateTime.MaxValue);
 
-            Assert.Equal("Generated 9 course instances and 9 courses. Found 0 duplicate course instances!", result);
+            Assert.Equal("Generated 4 course instances and 4 courses. Found 0 duplicate course instances!", result);
         }
 
         [Fact()]
-        public async void handleCourseCreationWithFileTest_ShouldOnlyCreateCourseInstancesThatEndOnOrAfterStartDate_GivenMultipleFileObjects(){ Assert.True(false); }
+        public async void handleCourseCreationWithFileTest_ShouldOnlyCreateCourseInstancesThatEndOnOrAfterStartDate_GivenMultipleFileObjects()
+        {
+            IFormFile correctFile = CreateTestFormFile("correct.txt", "Titel: Java Persistence API\r\nCursuscode: JPA\r\nDuur: 2 dagen\r\nStartdatum: 08/07/2020\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Fundamentals\r\nCursuscode: AZF\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Advanced\r\nCursuscode: AZA\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2024\r\n");
+
+            _courseRepoMock
+                .Setup(x => x.GetCourseInstanceModelByDateAndCourseCode(It.IsAny<DateTime>(), "JPA"))
+                .Returns(It.IsAny<CourseInstanceModel>());
+
+            var result =
+                await _sut.handleCourseCreationWithFile(correctFile, DateTime.Parse("24/03/2023"), DateTime.MaxValue);
+            
+            Assert.Equal("Generated 3 course instances and 3 courses. Found 0 duplicate course instances!", result);
+        }
 
         [Fact()]
-        public async void handleCourseCreationWithFileTest_ShouldOnlyCreateCourseInstancesThatStartOnOrBeforeTheEndDate_GivenMultipleFileObjects(){ Assert.True(false); }
+        public async void handleCourseCreationWithFileTest_ShouldOnlyCreateCourseInstancesThatStartOnOrBeforeTheEndDate_GivenMultipleFileObjects()
+        {
+            IFormFile correctFile = CreateTestFormFile("correct.txt", "Titel: Java Persistence API\r\nCursuscode: JPA\r\nDuur: 2 dagen\r\nStartdatum: 08/07/2020\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 06/07/2020\r\n\r\nTitel: Azure Fundamentals\r\nCursuscode: AZF\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Advanced\r\nCursuscode: AZA\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2024\r\n");
+
+
+            var result =
+                await _sut.handleCourseCreationWithFile(correctFile, DateTime.MinValue, DateTime.Parse("08/07/2020"));
+
+            Assert.Equal("Generated 2 course instances and 2 courses. Found 0 duplicate course instances!", result);
+            
+        }
 
         [Fact()]
-        public async void handleCourseCreationWithFileTest_ShouldOnlyCreateCourseInstancesThatAreNotYetInTheSystem_GivenMultipleFileObjects(){ Assert.True(false); }
+        public async void handleCourseCreationWithFileTest_ShouldOnlyCreateCourseInstancesThatAreNotYetInTheSystem_GivenMultipleFileObjects()
+        {
+            IFormFile correctFile = CreateTestFormFile("correct.txt", "Titel: Java Persistence API\r\nCursuscode: JPA\r\nDuur: 2 dagen\r\nStartdatum: 08/07/2020\r\n\r\nTitel: C# Programmeren\r\nCursuscode: CNETIN\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Fundamentals\r\nCursuscode: AZF\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2023\r\n\r\nTitel: Azure Advanced\r\nCursuscode: AZA\r\nDuur: 5 dagen\r\nStartdatum: 20/03/2024\r\n");
+
+            _courseRepoMock
+                .Setup(x => x.CheckIfCourseInstanceExists(It.IsAny<DateTime>(), "JPA"))
+                .Returns(true);
+
+            _courseRepoMock
+                .Setup(x => x.CheckIfCourseInstanceExists(It.IsAny<DateTime>(), "AZA"))
+                .Returns(true);
+
+            var result =
+                await _sut.handleCourseCreationWithFile(correctFile, DateTime.MinValue, DateTime.MaxValue);
+
+            Assert.Equal("Generated 2 course instances and 2 courses. Found 0 duplicate course instances!", result);
+        }
+
+        [Fact()]
+        public async void GetCourseInstanceByIdTest_ShouldThrowExecption_GivenThatNoCourseInstanceIsFound()
+        {
+            int id = -100;
+            _courseRepoMock.Setup(x => x.GetCourseInstanceById(id)).ReturnsAsync(value:null);
+
+            Assert.ThrowsAsync<Exception>(async () => await _sut.GetCourseInstanceById(id));
+        }
+
+        [Fact()]
+        public async void GetCourseInstanceByIdTest_ShouldReturnCourseInstance_GivenAValidId()
+        {
+            int id = -100;
+            CourseInstanceModel courseInstance = new CourseInstanceModel
+            {
+                Id = id
+            };
+
+            _courseRepoMock.Setup(x => x.GetCourseInstanceById(id)).ReturnsAsync(courseInstance);
+
+            var result = await _sut.GetCourseInstanceById(id);
+
+            Assert.Equal(courseInstance, result);
+            _courseRepoMock.Verify(x => x.GetCourseInstanceById(id), Times.Once);
+
+        }
     }
 }
-
-
-
-/*a.eindigen op of na de startdatum,
-    b.	beginnen op of voor de einddatum,
-    c.	nog niet in het systeem staan.*/

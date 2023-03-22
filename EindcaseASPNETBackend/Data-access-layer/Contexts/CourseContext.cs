@@ -15,6 +15,8 @@ public class CourseContext : DbContext
 
     private string dbConnectionString;
 
+    public CourseContext(){}
+
     public CourseContext(IConfiguration configuration)
     {
         _configuration = configuration;

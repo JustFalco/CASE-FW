@@ -1,5 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\JustFalco\AppData\Local\JetBrains\Rider2022.2\resharper-host\temp\Rider\vAny\CoverageData\_EindcaseASPNETBackend.1577898348\Snapshot\snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=05e8acf0_002D5415_002D4cbc_002Daec4_002D87a44c8a4f9e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="getCoursesByWeekAndYearTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.getCoursesByWeekAndYearTest_ShouldThrowException_GivenInvalidWeek&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.GetCourseInstanceByIdTest_ShouldReturnCourseInstance_GivenAValidId&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.GetCourseInstanceByIdTest_ShouldThrowExecption_GivenThatNoCourseInstanceIsFound&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1bfee65a_002Ddd0f_002D498b_002Da5e2_002D7f9b87eefeb7/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateStudentTest_ShouldReturnStudentFromDatabase_GivenExistingName" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.StudentServiceTests&lt;/TestId&gt;&#xD;
@@ -11,7 +18,7 @@
     &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests.generateCourseTest_ShouldReturnNewCourse_GivenNewFileObject&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c848ea8_002D04b6_002D4432_002D94ba_002D0793cd26828d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="generateCourseInstanceTest_ShouldReturnAndSaveNewCourseInstance_GivenNonExistingCourseInstance" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8c848ea8_002D04b6_002D4432_002D94ba_002D0793cd26828d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="generateCourseInstanceTest_ShouldReturnAndSaveNewCourseInstance_GivenNonExistingCourseInstance" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::0DC8D6F5-2E93-4BB3-9D4C-348E66E85159::net7.0::Service_layer.Tests.CourseServiceTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;

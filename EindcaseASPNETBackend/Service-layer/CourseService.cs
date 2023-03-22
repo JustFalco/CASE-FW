@@ -27,6 +27,11 @@ namespace Service_layer
 
         public async Task<List<CourseInstanceModel>> getCoursesByWeekAndYear(int week, int year)
         {
+            if (week < 1 || week > 53)
+            {
+                throw new Exception("Trying to insert invalid week number");
+            }
+
             //calculate start and enddate of week
             // https://stackoverflow.com/questions/662379/calculate-date-from-week-number
             DateTime jan1 = new DateTime(year, 1, 1);
@@ -266,7 +271,8 @@ namespace Service_layer
 
             foreach (var fileObject in fileObjects)
             {
-                if (fileObject.startDate >= StartDate && fileObject.startDate <= EndDate)
+                DateTime courseInstanceEndDate = fileObject.startDate.AddDays(fileObject.AmountOfDays - 1);
+                if (courseInstanceEndDate >= StartDate && fileObject.startDate <= EndDate && !_courseRepository.CheckIfCourseInstanceExists(fileObject.startDate, fileObject.CourseCode))
                 {
                     var result = await generateCourseInstance(fileObject);
                 }
