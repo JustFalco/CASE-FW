@@ -36,7 +36,7 @@ export class AddStudentComponent {
       FirstName: firstName,
       LastName: lastName,
       CourseInstanceId: this.instanceId
-    }
+    } 
 
     this.updateListEvent.emit({firstName, lastName})
 

@@ -59,7 +59,7 @@ export class DateStoreService {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams,
-      queryParamsHandling: 'merge', // remove to replace all query params by provided
+      queryParamsHandling: 'merge', 
     });
   }
 

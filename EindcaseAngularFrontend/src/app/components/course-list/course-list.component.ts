@@ -8,7 +8,7 @@ import { CourseApiService } from 'src/app/services/APIs/course-api.service';
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.css'],
 })
-export class CourseListComponent implements OnInit {
+export class CourseListComponent{
   courses?: CourseInstance[];
 
   constructor(public courseService: CourseApiService) {
@@ -18,9 +18,4 @@ export class CourseListComponent implements OnInit {
     this.courseService.getCourses()
   }
 
-  ngOnInit(): void {}
-
-  getFormattedDate(date: Date): string{
-    return date.toLocaleDateString()
-  }
 }

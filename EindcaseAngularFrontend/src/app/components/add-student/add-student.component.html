@@ -9,6 +9,6 @@
         <label for="lastName">Achternaam:</label>
         <input type="text" id="lastName" name="lastName" formControlName="lastName">
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="!newStudentForm.valid">Voeg toe</button>
-    <button class="btn btn-danger" type="reset" *ngIf="newStudentForm.dirty">Annuleer</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!newStudentForm.valid" id="submitButton">Voeg toe</button>
+    <button class="btn btn-danger" type="reset" *ngIf="newStudentForm.dirty" id="resetButton">Annuleer</button>
 </form>
