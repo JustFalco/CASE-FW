@@ -298,7 +298,8 @@ namespace Service_layer.Tests
 
             var result = await _sut.handleCourseCreationWithFile(incorrectFile, DateTime.MinValue, DateTime.MaxValue);
 
-            Assert.Equal("File is not in the correct format, error on line 4", result);
+            Assert.Equal(4, result.LineNrError);
+            Assert.Equal("File is not in correct format", result.Errors[0]);
         }
 
         [Fact()]
@@ -310,7 +311,9 @@ namespace Service_layer.Tests
 
             var result = await _sut.handleCourseCreationWithFile(correctFile, DateTime.MinValue, DateTime.MaxValue);
 
-            Assert.Equal("Generated 4 course instances and 4 courses. Found 0 duplicate course instances!", result);
+            Assert.Equal(4, result.CreatedCourses);
+            Assert.Equal(4, result.CreatedCourseInstances);
+            Assert.Equal(0, result.DuplicateCourseInstances);
         }
 
         [Fact()]
@@ -325,7 +328,9 @@ namespace Service_layer.Tests
             var result =
                 await _sut.handleCourseCreationWithFile(correctFile, DateTime.Parse("24/03/2023"), DateTime.MaxValue);
             
-            Assert.Equal("Generated 3 course instances and 3 courses. Found 0 duplicate course instances!", result);
+            Assert.Equal(3, result.CreatedCourses);
+            Assert.Equal(3, result.CreatedCourseInstances);
+            Assert.Equal(0, result.DuplicateCourseInstances);
         }
 
         [Fact()]
@@ -337,8 +342,10 @@ namespace Service_layer.Tests
             var result =
                 await _sut.handleCourseCreationWithFile(correctFile, DateTime.MinValue, DateTime.Parse("08/07/2020"));
 
-            Assert.Equal("Generated 2 course instances and 2 courses. Found 0 duplicate course instances!", result);
-            
+            Assert.Equal(2, result.CreatedCourses);
+            Assert.Equal(2, result.CreatedCourseInstances);
+            Assert.Equal(0, result.DuplicateCourseInstances);
+
         }
 
         [Fact()]
@@ -357,7 +364,9 @@ namespace Service_layer.Tests
             var result =
                 await _sut.handleCourseCreationWithFile(correctFile, DateTime.MinValue, DateTime.MaxValue);
 
-            Assert.Equal("Generated 2 course instances and 2 courses. Found 0 duplicate course instances!", result);
+            Assert.Equal(2, result.CreatedCourses);
+            Assert.Equal(2, result.CreatedCourseInstances);
+            Assert.Equal(0, result.DuplicateCourseInstances);
         }
 
         [Fact()]

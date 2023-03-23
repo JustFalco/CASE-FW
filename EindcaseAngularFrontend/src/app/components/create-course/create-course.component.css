@@ -1,0 +1,9 @@
+div{
+    display: flex;
+    flex-direction: column;
+}
+
+
+#startDate, #endDate {
+    width: 10vw;
+}

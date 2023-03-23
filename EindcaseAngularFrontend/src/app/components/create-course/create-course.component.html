@@ -1,6 +1,7 @@
 <form [formGroup]="courseCreateForm" (ngSubmit)="submitCourse()">
     <div>
         <input type="file" class="form-control-file" name="courseFiles" id="courseFiles" formControlName="files" accept=".txt" [multiple]="false" (change)="onFileChange($event)">
+        <small *ngIf="triedToInputWrongFile" class="text-danger">Kies een geldig .txt bestand!</small>
     </div>
     <div>
         <label for="startDate">Startdatum: </label>
@@ -15,3 +16,4 @@
 </form>
 
 <p *ngIf="submitResult">{{submitResult}}</p>
+<p *ngIf="submitError" class="text-danger">{{submitError}}</p>

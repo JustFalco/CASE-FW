@@ -4,6 +4,8 @@ import {
 	platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import { ngMocks } from 'ng-mocks';
+import { BehaviorSubject } from 'rxjs';
+import { DateStoreService } from './app/services/date-store.service';
 
 declare const require: any;
 

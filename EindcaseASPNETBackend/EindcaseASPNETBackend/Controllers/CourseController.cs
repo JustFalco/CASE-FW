@@ -40,15 +40,24 @@ namespace EindcaseASPNETBackend.Controllers
 
         // POST api/<CourseController>
         [HttpPost]
-        public async Task<string> Post(IFormFile file,[FromQuery] DateTime StartDate,[FromQuery] DateTime EndDate)
+        public async Task<IActionResult> Post(IFormFile file,[FromQuery] DateTime StartDate,[FromQuery] DateTime EndDate)
         {
-            if (file.Length > 0)
+            try
             {
-                var result = await _courseService.handleCourseCreationWithFile(file, StartDate, EndDate);
-                return result;
+                if (file.Length > 0)
+                {
+                    var result = await _courseService.handleCourseCreationWithFile(file, StartDate, EndDate);
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new CreateCoursePostResponse
+                    { Succes = false, Errors = new List<string> { e.Message } });
             }
 
-            return "There were errors";
+            return BadRequest(new CreateCoursePostResponse
+                { Succes = false, Errors = new List<string> { "Internal server error" } });
         }
 
         // PUT api/<CourseController>/5

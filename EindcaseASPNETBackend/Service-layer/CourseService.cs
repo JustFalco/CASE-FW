@@ -255,7 +255,7 @@ namespace Service_layer
             return result;
         }
 
-        public async Task<string> handleCourseCreationWithFile(IFormFile file, DateTime StartDate, DateTime EndDate)
+        public async Task<CreateCoursePostResponse> handleCourseCreationWithFile(IFormFile file, DateTime StartDate, DateTime EndDate)
         {
             _courseCounter = 0;
             _courseInstanceCounter = 0;
@@ -263,7 +263,15 @@ namespace Service_layer
 
             if (!IsFileInCorrectFormat(file))
             {
-                return $"File is not in the correct format, error on line {_lineNumError}";
+                return new CreateCoursePostResponse
+                {
+                    Succes = false,
+                    Errors = new List<string> { "File is not in correct format" },
+                    LineNrError = _lineNumError,
+                    CreatedCourses = _courseCounter,
+                    CreatedCourseInstances = _courseInstanceCounter,
+                    DuplicateCourseInstances = _duplicateCourseInstance
+                };
             }
 
             List<FileObject> fileObjects = handleFormFile(file);
@@ -278,7 +286,16 @@ namespace Service_layer
                 }
             }
 
-            return $"Generated {_courseInstanceCounter} course instances and {_courseCounter} courses. Found {_duplicateCourseInstance} duplicate course instances!";
+            return new CreateCoursePostResponse
+            {
+                Messages = new List<string> { "Succesfully generated course instances and/or courses" },
+                Succes = true,
+                CreatedCourses = _courseCounter,
+                CreatedCourseInstances = _courseInstanceCounter,
+                LineNrError = _lineNumError,
+                DuplicateCourseInstances = _duplicateCourseInstance
+                
+            };
         }
 
         public async Task<CourseInstanceModel> GetCourseInstanceById(int id)
