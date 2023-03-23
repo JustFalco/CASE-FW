@@ -11,7 +11,6 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { CourseCreatePageComponent } from './pages/course-create-page/course-create-page.component';
 import { CreateCourseComponent } from './components/create-course/create-course.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LinkFavouritesComponent } from './components/link-favourites/link-favourites.component';
 import { CourseDetailsPageComponent } from './pages/course-details-page/course-details-page.component';
 import { CourseCardComponent } from './components/course-card/course-card.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
@@ -28,7 +27,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
     NavMenuComponent,
     CourseCreatePageComponent,
     CreateCourseComponent,
-    LinkFavouritesComponent,
     CourseDetailsPageComponent,
     CourseCardComponent,
     AddStudentComponent,
