@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DateStoreService {
+export class DateStoreService implements OnInit{
   private weekSource = new BehaviorSubject<number>(1);
   private yearSource = new BehaviorSubject<number>(2023);
 
   public weekObs = this.weekSource.asObservable();
   public yearObs = this.yearSource.asObservable();
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  ngOnInit(): void {
     this.getQueryParams();
     this.setQueryParms()
   }
@@ -63,7 +65,7 @@ export class DateStoreService {
     });
   }
 
-  private getQueryParams() {
+  public getQueryParams() {
     this.route.queryParams.subscribe((params) => {
       if (!!params['year']) {
         this.yearSource.next(params['year']);
@@ -79,7 +81,8 @@ export class DateStoreService {
         let days = Math.floor(
           (currentDate - startDate) / (24 * 60 * 60 * 1000)
         );
-        this.weekSource.next(Math.ceil(days / 7));
+        let week = Math.ceil(days / 7);
+        this.weekSource.next(week);
       }
     });
   }
