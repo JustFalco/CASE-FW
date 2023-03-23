@@ -1,4 +1,5 @@
 import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
@@ -11,7 +12,7 @@ describe('CourseListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [CourseListComponent],
-            imports: [HttpClientModule, AppRoutingModule],
+            imports: [HttpClientTestingModule, AppRoutingModule],
         }).compileComponents();
 
         fixture = TestBed.createComponent(CourseListComponent);

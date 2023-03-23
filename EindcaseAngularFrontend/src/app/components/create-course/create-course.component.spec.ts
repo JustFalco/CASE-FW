@@ -1,4 +1,5 @@
 import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "src/app/app-routing.module";
@@ -15,7 +16,7 @@ describe('CreateCourseComponent', () => {
         imports: [
             ReactiveFormsModule, 
             AppRoutingModule, 
-            HttpClientModule],
+            HttpClientTestingModule],
         providers: [CourseApiService]
         })
         .compileComponents();

@@ -1,4 +1,5 @@
 import { HttpClientModule } from "@angular/common/http";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MockProvider } from "ng-mocks";
@@ -14,10 +15,11 @@ describe('AddStudentComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ AddStudentComponent ],
-            imports: [HttpClientModule, AppRoutingModule, ReactiveFormsModule],
+            imports: [HttpClientTestingModule, AppRoutingModule, ReactiveFormsModule],
             providers: [
                 MockProvider(StudentApiService)
-            ]
+            ],
+            teardown: {destroyAfterEach: false}
         })
         
         studentServiceMock = TestBed.inject(StudentApiService) as jasmine.SpyObj<StudentApiService>;

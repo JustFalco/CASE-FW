@@ -62,4 +62,9 @@ export class DateSelectorComponent implements OnInit {
     this.dateService.setWeek(this.dateEditForm.get('weekInput')?.value!);
     this.dateService.setYear(this.dateEditForm.get('yearInput')?.value!);
   }
+
+  ngOnDestroy(): void {
+    this.weekSub?.unsubscribe();
+    this.yearSub?.unsubscribe();
+  }
 }

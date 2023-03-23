@@ -24,10 +24,12 @@ export class AddStudentComponent {
     let firstName = this.newStudentForm.get("firstName")?.value
     let lastName = this.newStudentForm.get('lastName')?.value
     if(!this.instanceId){
+      //TODO add error message to page
       console.error("Cannot submit student, invalid course instance id!")
       return;
     }
     if(!firstName || !lastName){
+      //TODO add error message to page
       console.error("Cannot submit student, invalid first or last name!")
       return;
     }

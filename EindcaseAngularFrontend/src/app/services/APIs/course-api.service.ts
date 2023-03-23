@@ -27,9 +27,11 @@ export class CourseApiService {
   }
 
   getCourses() {
+    if(!this.week || !this.year) return;
+    
     let params = new HttpParams()
-      .set('week', this.week!)
-      .set('year', this.year!);
+      .set('week', this.week)
+      .set('year', this.year);
     this.http
       .get<CourseInstance[]>('https://localhost:7010/api/courses', { params })
       .subscribe(

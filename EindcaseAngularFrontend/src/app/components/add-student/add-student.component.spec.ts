@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MockProvider } from 'ng-mocks';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { StudentApiService } from 'src/app/services/APIs/student-api.service';
-
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AddStudentComponent } from './add-student.component';
 
 describe('AddStudentComponent', () => {
@@ -15,8 +15,9 @@ describe('AddStudentComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ AddStudentComponent ],
-      imports: [HttpClientModule, AppRoutingModule, ReactiveFormsModule],
-      providers: [MockProvider(StudentApiService)]
+      imports: [HttpClientTestingModule, AppRoutingModule, ReactiveFormsModule],
+      providers: [MockProvider(StudentApiService)],
+      teardown: {destroyAfterEach: false}
     })
     
 
@@ -54,10 +55,17 @@ describe('AddStudentComponent', () => {
 
   it("should enable submit button when form is valid", () => {
     const compiled = fixture.nativeElement;
-    const input = compiled.querySelector('input');
-    input.value = "test";
-    input.dispatchEvent(new Event('input'));
+
+    const firstNameInput = compiled.querySelector('#firstName');
+    firstNameInput.value = "Falco";
+    firstNameInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
+
+    const lastNameInput = compiled.querySelector('#lastName');
+    lastNameInput.value = "Wolkorte";
+    lastNameInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
     expect(compiled.querySelector('#submitButton').disabled).toBeFalsy();
   });
 
@@ -65,8 +73,4 @@ describe('AddStudentComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('#submitButton').disabled).toBeTruthy();
   });
-
-  
-
-
 });
