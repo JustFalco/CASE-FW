@@ -5,5 +5,5 @@ namespace Service_layer;
 
 public interface IStudentService
 {
-    Task<StudentModel> CreateStudent(CreateStudentDTO studentDto);
+    Task<CreateStudentPostResponse> CreateStudent(CreateStudentDTO studentDto);
 }

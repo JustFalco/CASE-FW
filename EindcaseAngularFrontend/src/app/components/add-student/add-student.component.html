@@ -12,3 +12,9 @@
     <button class="btn btn-primary" type="submit" [disabled]="!newStudentForm.valid" id="submitButton">Voeg toe</button>
     <button class="btn btn-danger" type="reset" *ngIf="newStudentForm.dirty" id="resetButton">Annuleer</button>
 </form>
+
+<div *ngIf="submitResult" >
+    <p >{{submitResult}}</p>
+</div>
+
+<p *ngIf="submitError" class="text-danger">{{submitError}}</p>

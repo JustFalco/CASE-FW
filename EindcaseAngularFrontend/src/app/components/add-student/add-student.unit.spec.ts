@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MockProvider } from "ng-mocks";
+import { Observable } from "rxjs";
 import { AppRoutingModule } from "src/app/app-routing.module";
 import { StudentApiService } from "src/app/services/APIs/student-api.service";
 import { AddStudentComponent } from "./add-student.component";
@@ -23,7 +24,8 @@ describe('AddStudentComponent', () => {
         })
         
         studentServiceMock = TestBed.inject(StudentApiService) as jasmine.SpyObj<StudentApiService>;
-        
+        studentServiceMock.postStudent.and.returnValue(new Observable());
+
         fixture = TestBed.createComponent(AddStudentComponent);
         sut = fixture.componentInstance;
 

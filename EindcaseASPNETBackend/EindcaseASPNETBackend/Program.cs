@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 var localConnectionString = builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.");
+var frontendUrl = "http://localhost:4200";
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -15,7 +16,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("angularfrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+        policy.WithOrigins(frontendUrl).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
     });
 });
 

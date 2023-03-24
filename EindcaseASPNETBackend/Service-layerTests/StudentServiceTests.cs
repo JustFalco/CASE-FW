@@ -137,7 +137,7 @@ namespace Service_layer.Tests
             var result = await _sut.CreateStudent(studentDto);
 
             _courseRepoMock.Verify(x => x.SaveCourseInstanceInDatabaseAsync(courseInstanceDummy), Times.Never);
-            Assert.Same(studentDummy, result);
+            Assert.Same(studentDummy, result.CreatedStudent);
             
         }
 
@@ -197,8 +197,8 @@ namespace Service_layer.Tests
             var result = await _sut.CreateStudent(studentDto);
 
             _courseRepoMock.Verify(x => x.SaveCourseInstanceInDatabaseAsync(courseInstanceDummy), Times.Once());
-            Assert.Equal( firstName, result.FirstName);
-            Assert.Equal(lastName, result.LastName);
+            Assert.Equal( firstName, result.CreatedStudent.FirstName);
+            Assert.Equal(lastName, result.CreatedStudent.LastName);
         }
     }
 }
