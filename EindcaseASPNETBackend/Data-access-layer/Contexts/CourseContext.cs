@@ -23,7 +23,7 @@ public class CourseContext : DbContext
         dbConnectionString = _configuration.GetConnectionString("LocalConnection");
     }
 
-    public CourseContext(DbContextOptions<DefaultContext> options, IConfiguration configuration) : base(options)
+    public CourseContext(DbContextOptions<CourseContext> options, IConfiguration configuration) : base(options)
     {
         _configuration = configuration;
         dbConnectionString = _configuration.GetConnectionString("LocalConnection");

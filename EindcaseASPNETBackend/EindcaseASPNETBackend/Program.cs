@@ -5,7 +5,7 @@ using Service_layer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var azureConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 var localConnectionString = builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.");
 
 // Add services to the container.
