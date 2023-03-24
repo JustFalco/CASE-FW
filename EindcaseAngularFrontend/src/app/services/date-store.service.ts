@@ -6,13 +6,15 @@ import { BehaviorSubject, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class DateStoreService implements OnInit{
-  private weekSource = new BehaviorSubject<number>(1);
+  private weekSource = new BehaviorSubject<number>(this.calculateWeekNumber());
   private yearSource = new BehaviorSubject<number>(2023);
 
   public weekObs = this.weekSource.asObservable();
   public yearObs = this.yearSource.asObservable();
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) {
+
+  }
 
   ngOnInit(): void {
     this.getQueryParams();
@@ -76,14 +78,21 @@ export class DateStoreService implements OnInit{
       if (!!params['week']) {
         this.weekSource.next(params['week']);
       } else {
-        let currentDate: any = new Date();
-        let startDate: any = new Date(currentDate.getFullYear(), 0, 1);
-        let days = Math.floor(
-          (currentDate - startDate) / (24 * 60 * 60 * 1000)
-        );
-        let week = Math.ceil(days / 7);
+        let week = this.calculateWeekNumber();
         this.weekSource.next(week);
       }
     });
   }
+
+  private calculateWeekNumber() {
+    let currentDate: any = new Date();
+    let startDate: any = new Date(currentDate.getFullYear(), 0, 1);
+    let days = Math.floor(
+      (currentDate - startDate) / (24 * 60 * 60 * 1000)
+    );
+    let week = Math.ceil(days / 7);
+
+    return week;
+  }
+
 }
