@@ -49,12 +49,6 @@ Voor dat de applicatie geïnstalleerd kan worden zijn er een aantal benodigdhede
     cd EindcaseASPNETBackend/
     ```
 
-1. Update de database zodat deze met de server kan werken:
-
-    ```bash
-    dotnet ef database update
-    ```
-
 1. Start de productie server met het volgende commando:
 
     ```bash
