@@ -4,13 +4,13 @@ nav h1{
 }
 
 nav a{
-    color: lightblue;
+    color: rgb(255, 255, 255);
 }
 
 nav{
     justify-content: left;
 }
 
-.active{
-    text-decoration: underline;
+nav a.active{
+    border-bottom: 2px solid rgb(0, 122, 221);
 }

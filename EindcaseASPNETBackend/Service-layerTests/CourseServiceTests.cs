@@ -366,7 +366,7 @@ namespace Service_layer.Tests
 
             Assert.Equal(2, result.CreatedCourses);
             Assert.Equal(2, result.CreatedCourseInstances);
-            Assert.Equal(0, result.DuplicateCourseInstances);
+            Assert.Equal(2, result.DuplicateCourseInstances);
         }
 
         [Fact()]

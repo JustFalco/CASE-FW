@@ -1,0 +1,16 @@
+h4{
+    margin-top: 2vh;
+}
+
+input{
+    width: 15vw;
+    margin-bottom: 2vh;
+}
+
+p{
+    margin-top: 1vh;
+}
+
+#resetButton{
+    margin-left: 0.5vw;
+}

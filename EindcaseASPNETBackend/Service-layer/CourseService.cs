@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -230,7 +231,6 @@ namespace Service_layer
 
             if (courseInstance != null)
             {
-                this._duplicateCourseInstance++;
                 return courseInstance;
             }
             else
@@ -259,6 +259,7 @@ namespace Service_layer
         {
             _courseCounter = 0;
             _courseInstanceCounter = 0;
+            _duplicateCourseInstance = 0;
             _lineNumError = 0;
 
             if (!IsFileInCorrectFormat(file))
@@ -280,9 +281,16 @@ namespace Service_layer
             foreach (var fileObject in fileObjects)
             {
                 DateTime courseInstanceEndDate = fileObject.startDate.AddDays(fileObject.AmountOfDays - 1);
-                if (courseInstanceEndDate >= StartDate && fileObject.startDate <= EndDate && !_courseRepository.CheckIfCourseInstanceExists(fileObject.startDate, fileObject.CourseCode))
+                
+                if (courseInstanceEndDate >= StartDate && fileObject.startDate <= EndDate)
                 {
-                    var result = await generateCourseInstance(fileObject);
+                    if(!_courseRepository.CheckIfCourseInstanceExists(fileObject.startDate, fileObject.CourseCode))
+                    {
+                        var result = await generateCourseInstance(fileObject);
+                    }else
+                    {
+                        _duplicateCourseInstance++;
+                    }
                 }
             }
 
