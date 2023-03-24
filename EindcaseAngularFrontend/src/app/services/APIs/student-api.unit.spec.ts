@@ -35,12 +35,11 @@ describe('Student API', () => {
             CourseInstanceId: 1
         };
 
-        sut.postStudent(expectedStudent);
+        sut.postStudent(expectedStudent).subscribe(() => {});
 
         const req = httpMock.expectOne('https://localhost:7010/api/student');
         expect(req.request.method).toBe('POST');
         expect(req.request.body).toEqual(expectedStudent);
-        req.flush(expectedStudent);
-        expect(courseServiceMock.getCourses).toHaveBeenCalled();
+
     });
 });

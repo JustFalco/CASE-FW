@@ -9,7 +9,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let course of courses" [routerLink]="['course', course.id]">
+          <tr *ngFor="let course of courses" [routerLink]="['.', course.id]" >
             <td scope="row">{{course.startDate | date:'mediumDate'}}</td>
             <td scope="row">{{course.course.amountOfDays}}</td>
             <td scope="row">{{course.course.title}}</td>

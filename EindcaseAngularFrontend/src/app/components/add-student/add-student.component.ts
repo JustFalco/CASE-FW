@@ -4,13 +4,17 @@ import { StudentApiService } from 'src/app/services/APIs/student-api.service';
 import { CreateStudentDTO } from 'src/app/models/create-student-dto';
 import { CourseApiService } from 'src/app/services/APIs/course-api.service';
 import { Student } from 'src/app/models/student';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-student',
   templateUrl: './add-student.component.html',
   styleUrls: ['./add-student.component.css'],
 })
-export class AddStudentComponent {
+export class AddStudentComponent{
+  submitResult?: string = "";
+  submitError?: string = "";
+  postSubscription?:Subscription
   @Input("instanceId") instanceId?: number
   @Output() updateListEvent = new EventEmitter<Student>();
   newStudentForm = new FormGroup({
@@ -21,6 +25,8 @@ export class AddStudentComponent {
   constructor(private studentService: StudentApiService, private courseService: CourseApiService){}
 
   submitStudent(){
+    this.submitResult = ""
+    this.submitError = ""
     let firstName = this.newStudentForm.get("firstName")?.value
     let lastName = this.newStudentForm.get('lastName')?.value
     if(!this.instanceId){
@@ -40,9 +46,33 @@ export class AddStudentComponent {
       CourseInstanceId: this.instanceId
     } 
 
-    this.updateListEvent.emit({firstName, lastName})
+    
 
-    this.studentService.postStudent(studentDto)
+    this.postSubscription = this.studentService.postStudent(studentDto).subscribe((result) => {
+      console.log(JSON.stringify(result))
+      if(result.succes){
+        this.courseService.getCourses()
+        const firstName = result.createdStudent.firstName
+        const lastName = result.createdStudent.lastName
+        this.updateListEvent.emit({firstName, lastName})
+        console.log(result.messages)
+        result.messages.forEach(element => {
+          this.submitResult += element + ".\n\n"
+        });
+      }else{
+        if(result.errors){
+          result.errors.forEach(element => {
+            this.submitError += element + "\n"
+          });
+        }
+      }
+    })
     this.newStudentForm.reset()
+  }
+
+  ngOnDestroy(): void {
+    if(this.postSubscription){
+      this.postSubscription.unsubscribe()
+    }
   }
 }

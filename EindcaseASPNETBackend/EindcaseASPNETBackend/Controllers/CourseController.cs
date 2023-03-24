@@ -60,16 +60,5 @@ namespace EindcaseASPNETBackend.Controllers
                 { Succes = false, Errors = new List<string> { "Internal server error" } });
         }
 
-        // PUT api/<CourseController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CourseController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

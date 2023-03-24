@@ -5,7 +5,8 @@ import { CourseDetailsPageComponent } from './pages/course-details-page/course-d
 import { CourseViewPageComponent } from './pages/course-view-page/course-view-page.component';
 
 const routes: Routes = [
-  { path: '', component: CourseViewPageComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'course' },
+  { path: 'course', component: CourseViewPageComponent},
   { path: 'create', component: CourseCreatePageComponent },
   { path: 'course/:id', component: CourseDetailsPageComponent }
 ];

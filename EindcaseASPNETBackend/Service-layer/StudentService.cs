@@ -20,8 +20,14 @@ namespace Service_layer
             _courseRepository = courseRepository;
         }
 
-        public async Task<StudentModel> CreateStudent(CreateStudentDTO studentDto)
+        public async Task<CreateStudentPostResponse> CreateStudent(CreateStudentDTO studentDto)
         {
+            CreateStudentPostResponse returnResponse = new CreateStudentPostResponse
+            {
+                Messages = new List<string>(),
+                Errors = new List<string>()
+            };
+
             //check if student exists
             StudentModel student = new StudentModel();
             student = _studentRepository.GetStudentByNameAndId(studentDto.FirstName, studentDto.LastName);
@@ -37,6 +43,7 @@ namespace Service_layer
 
                 //Save student in database
                 student = await _studentRepository.SaveStudentAsync(student);
+                returnResponse.Messages.Add("Student created successfully");
             }
 
             //get course instance
@@ -49,7 +56,10 @@ namespace Service_layer
             //check if student is already attending course instance
             if (courseInstance.Students.Contains(student))
             {
-                return student;
+                returnResponse.Succes = false;
+                returnResponse.Errors.Add("Student is already attending course instance!");
+                returnResponse.CreatedStudent = student;
+                return returnResponse;
             }
 
             //check if course instance has less than 12 students
@@ -58,14 +68,20 @@ namespace Service_layer
             {
                 courseInstance.Students.Add(student);
                 await _courseRepository.SaveCourseInstanceInDatabaseAsync(courseInstance);
+                returnResponse.Messages.Add("Student added to course instance successfully");
             }
             else
             {
-                throw new Exception("Course already has 12 students!");
+                returnResponse.Succes = false;
+                returnResponse.Errors.Add("Course instance already has 12 attendees!");
+                return returnResponse;
             }
 
-            //return student
-            return student;
+            returnResponse.Succes = true;
+            returnResponse.CreatedStudent = student;
+
+            //return respnse
+            return returnResponse;
 
         }
     }

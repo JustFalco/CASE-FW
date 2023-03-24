@@ -10,3 +10,7 @@ nav a{
 nav{
     justify-content: left;
 }
+
+.active{
+    text-decoration: underline;
+}
